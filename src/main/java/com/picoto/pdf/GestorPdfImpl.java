@@ -55,7 +55,7 @@ public class GestorPdfImpl implements GestionPdf {
 			String titulo = "Justificante XXX";
 			String autor = "XXX";
 			String claves = "XXX, Justificante";
-			String software = "XXX OVCT";
+			String software = "XXX";
 
 			// Crea un documento vacio
 			documentoPdf = new PDDocument();
@@ -74,7 +74,7 @@ public class GestorPdfImpl implements GestionPdf {
 			}
 
 			Calendar fecha = new GregorianCalendar();
-			createXMPMetadata(new COSStream(), titulo, software, claves, fecha);
+			createXMPMetadata(new COSStream(), titulo, software, claves, software, fecha);
 			createDocumentInfo(titulo, autor, claves, software, fecha);
 
 			// Referencia a la fuente
@@ -98,9 +98,9 @@ public class GestorPdfImpl implements GestionPdf {
 		// Conflicto aunque coincidan con datos de XMP, lo quitamos
 		// docInfo.setCreationDate(fecha);
 		// docInfo.setModificationDate(fecha);
-		docInfo.setCreator(autor);
-		docInfo.setKeywords(claves);
-		docInfo.setProducer(software);
+		//docInfo.setCreator(autor);
+		//docInfo.setKeywords(claves);
+		//docInfo.setProducer(software);
 	}
 
 	protected void cargarFuentePrincipal() throws IOException {
@@ -649,7 +649,7 @@ public class GestorPdfImpl implements GestionPdf {
 		doc.close();
 	}
 
-	private void createXMPMetadata(COSStream cosStream, String titulo, String autor, String tema, Calendar fecha)
+	private void createXMPMetadata(COSStream cosStream, String titulo, String autor, String tema, String tool, Calendar fecha)
 			throws IOException {
 		try {
 			/*
@@ -698,7 +698,7 @@ public class GestorPdfImpl implements GestionPdf {
 			PDMetadata metadata = new PDMetadata(documentoPdf);
 			String metadatos = new String(IOUtils.toByteArray(is));
 			metadata.importXMPMetadata(metadatos.replace("${fecha}", UtilStrings.getFechaFormato(fecha))
-					.replace("${titulo}", titulo).getBytes());
+					.replace("${titulo}", titulo).replace("${autor}", autor).replace("${tool}", tool).getBytes());
 			documentoPdf.getDocumentCatalog().setMetadata(metadata);
 			is.close();
 

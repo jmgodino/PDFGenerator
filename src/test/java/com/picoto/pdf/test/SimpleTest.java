@@ -146,7 +146,7 @@ public class SimpleTest implements Runnable {
         public void run() {
                 log.info("Generando fichero de prueba");
                 try {
-                        String fichero = "test-" + System.currentTimeMillis() + ".pdf";
+                        String fichero = "Pdf-A-Test.pdf";
                         FileOutputStream fos = new FileOutputStream(fichero);
 
                         fos.write(getPlantillaTest().toByteArray());

@@ -64,7 +64,7 @@ public class UtilStrings {
         }
 
         public static String getFechaFormato(Calendar fecha) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 sdf.setTimeZone(TimeZone.getDefault());
                 return sdf.format(fecha.getTime());
         }
