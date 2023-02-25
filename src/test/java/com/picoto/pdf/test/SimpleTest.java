@@ -38,7 +38,7 @@ public class SimpleTest implements Runnable {
                 campoPdf.setY(342.0f);
 
                 gestor.generarCodigoBarras128(campoPdf.getX(), campoPdf.getX(), "(90)an42",
-                                "9051200200000000030902282001501107F89890001K", 300, 30);
+                                "9051200200000000030902282001501107F12345678Z", 300, 30);
                
                 gestor.generarCodigoBarras417(campoPdf.getX(), campoPdf.getX()-50, "90015DIGI202211171714493350001110", 200, 30);
 
@@ -67,7 +67,7 @@ public class SimpleTest implements Runnable {
                                 posVertical = posVertical + incVertical;
                                 Partida p = new Partida();
                                 p.setValor("" + 10000000 * new Random().nextDouble());
-                                p.setTexto("Partida xx" + (10 * i + j));
+                                p.setTexto("Texto xx" + (10 * i + j));
                                 p.setIdPartida(10 * i + j);
                                 p.setRotulo(String.format("%04d", 10 * i + j));
                                 imprimirPartida(p, x, posVertical);
@@ -79,14 +79,14 @@ public class SimpleTest implements Runnable {
                                 }
                         }
                         gestor.generarMarcaAgua(80, Color.BLUE, "Entorno de pruebas", true);
-                        gestor.generarMarcaAgua(80, Color.BLUE, "no válido", true, 20, -80);
+                        gestor.generarMarcaAgua(80, Color.BLUE, "sin validez", true, 20, -80);
                         gestor.addTextoSubrayado("Esto es una prueba de texto subrayado", 40, 30, GestionPdf.ALIGN_LEFT, 12);
                         gestor.addTextoFormato("*Negrita*: _subrayado_ normal", 360, 30, GestionPdf.ALIGN_LEFT, 12);
 
-                        gestor.generarMarcaAgua(36, Color.GRAY, "BORRADOR NO VÁLIDO PARA SU PRESENTACIÓN", true);
+                        gestor.generarMarcaAgua(36, Color.GRAY, "ES UN TEST, NO VÁLIDO", true);
 
                         gestor.imprimirPiePagina(true, (i + 1),
-                                        "La autenticidad de este documento puede ser comprobada mediante el Código Seguro de Verificación E82D8C2E8A3D4E6F en https://sede.agenciatributaria.gob.es",
+                                        "Fin de página",
                                         28.0f);
                 }
 
@@ -146,7 +146,7 @@ public class SimpleTest implements Runnable {
         public void run() {
                 log.info("Generando fichero de prueba");
                 try {
-                        String fichero = "c:\\test-" + System.currentTimeMillis() + ".pdf";
+                        String fichero = "test-" + System.currentTimeMillis() + ".pdf";
                         FileOutputStream fos = new FileOutputStream(fichero);
 
                         fos.write(getPlantillaTest().toByteArray());
